@@ -55,4 +55,9 @@ bin/Obfuscator_x64.pdb
 *.ipch
 *.tlog
 *.exp
+bin/Default.exe.id0
+bin/Default.exe.id1
+bin/Default.exe.id2
+bin/Default.exe.nam
+bin/Default.exe.til
 /bin/intermediates
