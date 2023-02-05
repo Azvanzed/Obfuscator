@@ -48,3 +48,4 @@ bin/intermediates/Obfuscator.tlog/Obfuscator.lastbuildstate
 bin/intermediates/Obfuscator_x64.exe.recipe
 bin/intermediates/vc143.pdb
 bin/Obfuscator_x64.pdb
+*.vsidx

@@ -27,6 +27,7 @@ ULONG32 entryStub(ULONG32 argc, CHAR** argv)
 		LDR_DATA_TABLE_ENTRY* Module = (LDR_DATA_TABLE_ENTRY*)(CONTAINING_RECORD(Current.Flink, PEB_LDR_DATA, InMemoryOrderModuleList));
 
 		
+
 	}
 
 	ULONG64 imageBase = ( ULONG64 )Peb->ImageBaseAddress;
@@ -41,6 +42,9 @@ INT main(
 	INT argc,
 	CHAR** argv)
 {
+	if (argc < 1)
+		return 1;
+
 	std::vector<BYTE> fileData;
 	Utils::readFile(argv[1], &fileData);
 	printf("[+] Loaded %.2fkb file to memory\n", (float)fileData.size() / 1024.00f);
