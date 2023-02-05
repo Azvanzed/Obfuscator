@@ -1,5 +1,7 @@
 #pragma runtime_checks( "", off )
 #pragma optimize( "", off )
+#include "Defines.h"
+
 namespace Routines
 {
 	ULONG32 __stdcall customEntry(ULONG32 argc, CHAR** argv)

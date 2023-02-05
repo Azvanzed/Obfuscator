@@ -1,22 +1,10 @@
 #include <windows.h>
-#include <intrin.h>
-#include <tlhelp32.h>
 #include <iostream>
 #include <fstream>
-#include <functional>
-#include <Psapi.h>
-#include <DbgHelp.h>
-#include <random>
 #include <vector>
-#include <string>
 #include <chrono>
-
-#include "Defines.h"
 #include "Utils.h"
-
 #include "PE.h"
-#include "Routine.h"
-
 #include "Routines.h"
 #include "EntryPoint.h"
 
