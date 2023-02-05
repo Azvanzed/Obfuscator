@@ -5,6 +5,12 @@
     <ClCompile Include="Deps\Zydis\Zydis.c">
       <Filter>Deps\Zydis</Filter>
     </ClCompile>
+    <ClCompile Include="Deps\ImGui\imgui.cpp" />
+    <ClCompile Include="Deps\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="Deps\ImGui\imgui_impl_dx9.cpp" />
+    <ClCompile Include="Deps\ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="Deps\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="Deps\ImGui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Deps\Zydis\Zydis.h">
@@ -22,10 +28,21 @@
     <ClInclude Include="Defines.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Parser.h">
+    <ClInclude Include="zydisParser.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="PdbParser.h" />
+    <ClInclude Include="GUI\Menu.h" />
+    <ClInclude Include="GUI\Window.h" />
+    <ClInclude Include="GUI\DirectX.h" />
+    <ClInclude Include="Deps\ImGui\imconfig.h" />
+    <ClInclude Include="Deps\ImGui\imgui.h" />
+    <ClInclude Include="Deps\ImGui\imgui_impl_dx9.h" />
+    <ClInclude Include="Deps\ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="Deps\ImGui\imgui_internal.h" />
+    <ClInclude Include="Deps\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="Deps\ImGui\imstb_textedit.h" />
+    <ClInclude Include="Deps\ImGui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">
@@ -36,6 +53,9 @@
     </Filter>
     <Filter Include="Deps\Zydis">
       <UniqueIdentifier>{c0e7c193-7b7f-475d-bd38-cf526b9fb3b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Deps\ImGui">
+      <UniqueIdentifier>{afc303fc-1048-420f-bdcc-4557b8b32cdc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

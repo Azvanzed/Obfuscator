@@ -74,7 +74,8 @@
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\</IntDir>
     <TargetName>$(ProjectName)_x64</TargetName>
-    <IncludePath>.\Deps\Zydis\;$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK)\Include\;.\Deps\ImGui\;.\Deps\Zydis\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK)\Lib\x64\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -132,6 +133,7 @@
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FloatingPointModel>Fast</FloatingPointModel>
       <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>.\Deps\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,16 +141,33 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
-      <AdditionalDependencies>dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dbghelp.lib;d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Deps\ImGui\imgui.cpp" />
+    <ClCompile Include="Deps\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="Deps\ImGui\imgui_impl_dx9.cpp" />
+    <ClCompile Include="Deps\ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="Deps\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="Deps\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Deps\Zydis\Zydis.c" />
     <ClCompile Include="Entry.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Deps\ImGui\imconfig.h" />
+    <ClInclude Include="Deps\ImGui\imgui.h" />
+    <ClInclude Include="Deps\ImGui\imgui_impl_dx9.h" />
+    <ClInclude Include="Deps\ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="Deps\ImGui\imgui_internal.h" />
+    <ClInclude Include="Deps\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="Deps\ImGui\imstb_textedit.h" />
+    <ClInclude Include="Deps\ImGui\imstb_truetype.h" />
+    <ClInclude Include="GUI\DirectX.h" />
+    <ClInclude Include="GUI\Menu.h" />
     <ClInclude Include="Deps\Zydis\Zydis.h" />
-    <ClInclude Include="Parser.h" />
+    <ClInclude Include="GUI\Window.h" />
+    <ClInclude Include="zydisParser.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="PdbParser.h" />
     <ClInclude Include="PE.h" />

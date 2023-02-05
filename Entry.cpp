@@ -14,18 +14,49 @@
 #include "Routine.h"
 
 #include "PdbParser.h"
-#include "Parser.h"
+#include "zydisParser.h"
+
+#include <d3d9.h>
+
+#include <imgui.h>
+#include <imgui_impl_win32.h>
+#include <imgui_impl_dx9.h>
+
+#include "GUI/Window.h"
+#include "GUI/DirectX.h"
+#include "GUI/Menu.h"
+
+VOID onDrawCallback()
+{
+	ImGui::SetNextWindowSize({ 400, 600 });
+	ImGui::Begin("Obfuscation Engine", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings);
+
+
+
+	ImGui::End();
+}
 
 INT main(
 	INT argc,
 	CHAR** argv)
 {
+	CWindow Window{ L"Window Class", L"Window Title" };
+	Window.Create(GetSystemMetrics(SM_CXSCREEN) / 2, GetSystemMetrics(SM_CYSCREEN) / 2, 500, 700);
+
+	CDirectX DirectX{ &Window };
+
+	Menu::drawLoop(&Window, &DirectX, &onDrawCallback);
+	
+	DirectX.resetDevice();
+	Window.Destroy();
+
+	Sleep(-1);
+
 	PE Image{ "Default.exe" };
 	printf("[+] Loaded %.2fkb file to memory\n", (float)Image.fileData.size() / 1024.00f);
 
 	printf("==============================================================\n");
 	std::chrono::time_point startTime = std::chrono::steady_clock::now();
-
 
 	IMAGE_SECTION_HEADER* Stub = Image.createSection(".stub", 512, 0x60000020);
 	Image.Refresh();
@@ -37,11 +68,6 @@ INT main(
 	CPdbParser pdbParser{};
 	pdbParser.Parse(pdbFilePath.c_str());
 
-	for (CRoutine Routine : pdbParser.Routines)
-	{
-		printf("[0x%x] %s\n", Routine.Offset, Routine.Name);
-	}
-	
 
 	std::chrono::time_point endTime = std::chrono::steady_clock::now();
 	printf("==============================================================\n");
