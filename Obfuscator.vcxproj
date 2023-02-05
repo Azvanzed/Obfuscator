@@ -150,6 +150,7 @@
     <ClInclude Include="Deps\Zydis\Zydis.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="Defines.h" />
+    <ClInclude Include="Pdb.h" />
     <ClInclude Include="PE.h" />
     <ClInclude Include="Routine.h" />
     <ClInclude Include="Utils.h" />

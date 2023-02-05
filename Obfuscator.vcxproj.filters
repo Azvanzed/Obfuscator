@@ -25,6 +25,7 @@
     <ClInclude Include="Parser.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Pdb.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">

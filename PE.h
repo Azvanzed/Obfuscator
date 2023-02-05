@@ -1,19 +1,32 @@
 class PE
 {
 public:
-	std::vector<BYTE>* fileData;
-	IMAGE_NT_HEADERS* Nt;
-	ULONG64 imageBase;
+	CHAR				filePath[MAX_PATH];
+	std::vector<BYTE>	fileData;
+	IMAGE_NT_HEADERS*	Nt;
+	ULONG64				imageBase;
 
-	PE(std::vector<BYTE>* fileData)
-		: fileData(fileData)
+	PE(const CHAR* fileName)
 	{
+		GetFullPathNameA(fileName, MAX_PATH, this->filePath, NULL);
+
+		std::ifstream fileStream(this->filePath, std::ios::binary);
+		fileData.assign((std::istreambuf_iterator<CHAR>(fileStream)), std::istreambuf_iterator<CHAR>());
+		fileStream.close();
+
 		this->Refresh();
+	}
+
+	VOID storeOnDisk(const CHAR* fileName)
+	{
+		std::ofstream fileStream(fileName, std::ios_base::out | std::ios_base::binary);
+		fileStream.write((CHAR*)this->fileData.data(), this->fileData.size());
+		fileStream.close();
 	}
 
 	VOID Refresh()
 	{
-		this->imageBase = (ULONG64)fileData->data();
+		this->imageBase = (ULONG64)fileData.data();
 		this->Nt = (IMAGE_NT_HEADERS*)(this->imageBase + ( (IMAGE_DOS_HEADER*)this->imageBase)->e_lfanew);
 	}
 
@@ -43,7 +56,7 @@ public:
 		Nt->OptionalHeader.SizeOfHeaders =
 			Utils::Align(Nt->OptionalHeader.SizeOfHeaders + sizeof(IMAGE_SECTION_HEADER), Nt->OptionalHeader.FileAlignment);
 
-		fileData->resize(Nt->OptionalHeader.SizeOfImage);
+		fileData.resize(Nt->OptionalHeader.SizeOfImage);
 		return newSection;
 	}
 };
