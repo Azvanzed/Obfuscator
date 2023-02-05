@@ -28,7 +28,7 @@
     <ClInclude Include="Defines.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="zydisParser.h">
+    <ClInclude Include="ZydisParser.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="PdbParser.h" />

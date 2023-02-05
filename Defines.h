@@ -1,6 +1,3 @@
-#pragma once
-#include <windows.h>
-
 typedef struct _UNICODE_STRING {
 	USHORT Length;
 	USHORT MaximumLength;

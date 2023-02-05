@@ -9,12 +9,14 @@
 
 #include <Zydis.h>
 
+#include "Defines.h"
+
 #include "Utils.h"
 #include "PE.h"
 #include "Routine.h"
 
 #include "PdbParser.h"
-#include "zydisParser.h"
+#include "ZydisParser.h"
 
 #include <d3d9.h>
 
@@ -28,7 +30,7 @@
 
 VOID onDrawCallback()
 {
-	ImGui::SetNextWindowSize({ 400, 600 });
+	ImGui::SetNextWindowSize({ 475, 535 });
 	ImGui::Begin("Obfuscation Engine", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings);
 
 
@@ -40,15 +42,14 @@ INT main(
 	INT argc,
 	CHAR** argv)
 {
-#pragma region test
 	std::vector<BYTE> raw_bytes = { 0xE9,0x10,0x20,0x00,0x00 };
 	zydisParser ok;
 	ZydisDecodedInstruction wa;
 	ZydisDecodedOperand ws[ZYDIS_MAX_OPERAND_COUNT];
 	ok.decodeInstruction(raw_bytes,&wa,ws);
-	std::cout << std::hex << "0x" << ok.getJmpOffset(wa, ws) << std::endl;
+	std::cout << std::hex << "0x" << ok.getJmpOffset(wa) << std::endl;
 	return 0;
-#pragma endregion test
+
 	// end of test
 	CWindow Window{ L"Window Class", L"Window Title" };
 	Window.Create(GetSystemMetrics(SM_CXSCREEN) / 2, GetSystemMetrics(SM_CYSCREEN) / 2, 500, 700);
