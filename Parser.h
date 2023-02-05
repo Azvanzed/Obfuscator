@@ -48,9 +48,9 @@ public:
 			return false;
 		}
 	}
-	BOOLEAN getJmpOffset(ZydisDecodedInstruction& instr, ZydisDecodedOperand* operands,uint64_t& jmp_offset)
+	uint64_t getJmpOffset(ZydisDecodedInstruction& instr, ZydisDecodedOperand* operands)
 	{
-		if (isJmpRelative(instr))
+		if (!isJmpRelative(instr))
 			return NULL;
 		return instr.raw.imm->value.u;
 		ZydisInstructionSegments instrSegments;

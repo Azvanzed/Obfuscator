@@ -55,3 +55,4 @@ bin/Obfuscator_x64.pdb
 *.ipch
 *.tlog
 *.exp
+/bin/intermediates
