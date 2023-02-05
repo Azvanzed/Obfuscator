@@ -30,6 +30,8 @@
 *.exe
 *.out
 *.app
+.vs*
+.bin*
 .vs/Obfuscator/FileContentIndex/7bebcf0e-1bec-45c4-a718-a3be90fa6375.vsidx
 .vs/Obfuscator/FileContentIndex/read.lock
 .vs/Obfuscator/v17/Browse.VC.db
