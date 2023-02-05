@@ -1,7 +1,8 @@
-class Routine
+class CRoutine
 {
 public:
 
-	CHAR	Name[64];
-	ULONG64	Address;
+	CHAR	Name[512];
+	ULONG32	Offset;
+	SIZE_T	Size;
 };
