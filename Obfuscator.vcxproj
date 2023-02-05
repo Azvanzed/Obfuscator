@@ -74,7 +74,7 @@
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\</IntDir>
     <TargetName>$(ProjectName)_x64</TargetName>
-    <IncludePath>$(SolutionDir)\dependencies\zydis;$(IncludePath)</IncludePath>
+    <IncludePath>.\Deps\Zydis\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -143,16 +143,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="dependencies\zydis\Zydis.c" />
+    <ClCompile Include="Deps\Zydis\Zydis.c" />
     <ClCompile Include="Entry.cpp" />
-    <ClCompile Include="instructions_parser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dependencies\zydis\Zydis.h" />
-    <ClInclude Include="instructions_parser.h" />
-    <ClInclude Include="Routines.h" />
+    <ClInclude Include="Deps\Zydis\Zydis.h" />
+    <ClInclude Include="Parser.h" />
     <ClInclude Include="Defines.h" />
-    <ClInclude Include="EntryPoint.h" />
     <ClInclude Include="PE.h" />
     <ClInclude Include="Routine.h" />
     <ClInclude Include="Utils.h" />

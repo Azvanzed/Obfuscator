@@ -1,27 +1,24 @@
 #include <windows.h>
 #include <iostream>
 #include <fstream>
+#include <cstdio>
 #include <vector>
 #include <chrono>
+
+#include <Zydis.h>
+
 #include "Utils.h"
 #include "PE.h"
-#include "Routines.h"
-#include "EntryPoint.h"
-#include <Zydis.h>
-#include "instructions_parser.h"
-ZYDIS_MNEMONIC_H
+#include "Routine.h"
+
+#include "Parser.h"
 
 INT main(
 	INT argc,
 	CHAR** argv)
 {
-	std::string str_test = "\xE9\x00\x00\x00\x00";
-	std::vector<BYTE> raw_bytes = { 0xE9,0x00,0x00,0x00,0x00 };
-	instruction test_instruction(raw_bytes);
-	return 1;
-	if (argc < 1)
-		return 1;
 
+	
 	std::vector<BYTE> fileData;
 	Utils::readFile(argv[1], &fileData);
 	printf("[+] Loaded %.2fkb file to memory\n", (float)fileData.size() / 1024.00f);
@@ -30,15 +27,11 @@ INT main(
 	std::chrono::time_point startTime = std::chrono::steady_clock::now();
 
 
-
 	PE Image{ &fileData };
 	IMAGE_SECTION_HEADER* Stub = Image.createSection(".stub", 512, 0x60000020);
 	Image.Refresh();
 
-	EntryPoint::addCustomEntry(Image, Stub, &Routines::customEntry);
 
-	/* Spoof entrypoint */
-	printf("[>] Spoofed entrypoint to 0x%llx\n", Image.Nt->OptionalHeader.AddressOfEntryPoint);
 
 	
 	

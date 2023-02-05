@@ -52,3 +52,6 @@ bin/intermediates/vc143.pdb
 bin/Obfuscator_x64.pdb
 *.vsidx
 .vs/Obfuscator/v17/.suo
+*.ipch
+*.tlog
+*.exp
