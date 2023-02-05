@@ -19,4 +19,9 @@ public:
 
 		return &Instruction;
 	}
+
+	VOID encodedInstruction()
+	{
+		eodenc
+	}
 };

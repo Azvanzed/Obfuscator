@@ -149,9 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Deps\Zydis\Zydis.h" />
     <ClInclude Include="Parser.h" />
-    <ClInclude Include="Stubs.h" />
     <ClInclude Include="Defines.h" />
-    <ClInclude Include="EntryPoint.h" />
     <ClInclude Include="PE.h" />
     <ClInclude Include="Routine.h" />
     <ClInclude Include="Utils.h" />

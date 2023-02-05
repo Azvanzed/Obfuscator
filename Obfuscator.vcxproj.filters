@@ -10,16 +10,10 @@
     <ClInclude Include="Deps\Zydis\Zydis.h">
       <Filter>Deps\Zydis</Filter>
     </ClInclude>
-    <ClInclude Include="EntryPoint.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="PE.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Routine.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Stubs.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">

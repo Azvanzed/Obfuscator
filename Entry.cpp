@@ -11,23 +11,14 @@
 #include "PE.h"
 #include "Routine.h"
 
-#include "Stubs.h"
-#include "EntryPoint.h"
-
 #include "Parser.h"
 
 INT main(
 	INT argc,
 	CHAR** argv)
 {
-	std::vector<BYTE> raw_bytes = { 0xE9,0x00,0x00,0x00,0x00 };
-	zydisParser Parser;
 
-	Parser.decodeInstruction(raw_bytes);
-
-	if (argc < 1)
-		return 1;
-
+	
 	std::vector<BYTE> fileData;
 	Utils::readFile(argv[1], &fileData);
 	printf("[+] Loaded %.2fkb file to memory\n", (float)fileData.size() / 1024.00f);
@@ -36,15 +27,11 @@ INT main(
 	std::chrono::time_point startTime = std::chrono::steady_clock::now();
 
 
-
 	PE Image{ &fileData };
 	IMAGE_SECTION_HEADER* Stub = Image.createSection(".stub", 512, 0x60000020);
 	Image.Refresh();
 
-	EntryPoint::addCustomEntry(Image, Stub, &Routines::customEntry);
 
-	/* Spoof entrypoint */
-	printf("[>] Spoofed entrypoint to 0x%llx\n", Image.Nt->OptionalHeader.AddressOfEntryPoint);
 
 	
 	
