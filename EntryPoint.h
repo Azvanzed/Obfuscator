@@ -1,5 +1,3 @@
-#include "Routine.h"
-
 namespace EntryPoint
 {
 	VOID addCustomEntry(PE& Image, IMAGE_SECTION_HEADER* Stub, PVOID customEntry)

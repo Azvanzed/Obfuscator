@@ -1,24 +1,30 @@
 #include <windows.h>
 #include <iostream>
 #include <fstream>
+#include <cstdio>
 #include <vector>
 #include <chrono>
+
+#include <Zydis.h>
+
 #include "Utils.h"
 #include "PE.h"
-#include "Routines.h"
+#include "Routine.h"
+
+#include "Stubs.h"
 #include "EntryPoint.h"
-#include <Zydis.h>
-#include "instructions_parser.h"
-ZYDIS_MNEMONIC_H
+
+#include "Parser.h"
 
 INT main(
 	INT argc,
 	CHAR** argv)
 {
-	std::string str_test = "\xE9\x00\x00\x00\x00";
 	std::vector<BYTE> raw_bytes = { 0xE9,0x00,0x00,0x00,0x00 };
-	instruction test_instruction(raw_bytes);
-	return 1;
+	zydisParser Parser;
+
+	Parser.decodeInstruction(raw_bytes);
+
 	if (argc < 1)
 		return 1;
 
