@@ -17,7 +17,17 @@ private:
 			&& !SymGetTypeInfo(GetCurrentProcess(), pUserCtx->pdbBase, symbolInfo->Index, TI_GET_ADDRESSOFFSET, &newRoutine.Offset))
 			return FALSE;
 
-		((std::vector<CRoutine>*)pUserCtx->Collector)->push_back(newRoutine);
+		std::vector<CRoutine>* Routines = (std::vector<CRoutine>*)pUserCtx->Collector;
+		if (std::find_if(Routines->begin(), Routines->end(),
+			[&](CRoutine Routine)
+			{
+				return Routine.Offset == newRoutine.Offset;
+			}
+		) == Routines->end())
+		{
+			((std::vector<CRoutine>*)pUserCtx->Collector)->push_back(newRoutine);
+		}
+
 		return TRUE;
 	}
 
@@ -39,6 +49,12 @@ public:
 		Ctx.pdbBase		= pdbBase;
 		Ctx.Collector	= &Routines;
 
-		return SymEnumSymbols(GetCurrentProcess(), pdbBase, NULL, (PSYM_ENUMERATESYMBOLS_CALLBACK)&symbolEnum, &Ctx);
+		if (!SymEnumSymbols(GetCurrentProcess(), pdbBase, NULL, (PSYM_ENUMERATESYMBOLS_CALLBACK)&symbolEnum, &Ctx))
+		{
+			SymCleanup(GetCurrentProcess());
+			return FALSE;
+		}
+
+		return SymCleanup(GetCurrentProcess());
 	}
 };

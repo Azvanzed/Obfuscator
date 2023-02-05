@@ -167,6 +167,7 @@
     <ClInclude Include="GUI\Menu.h" />
     <ClInclude Include="Deps\Zydis\Zydis.h" />
     <ClInclude Include="GUI\Window.h" />
+    <ClInclude Include="Obfuscator.h" />
     <ClInclude Include="ZydisParser.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="PdbParser.h" />

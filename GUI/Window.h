@@ -42,13 +42,10 @@ public:
         RegisterClassEx(&wndClass);
 	}
 
-    BOOLEAN Create(ULONG32 startX, ULONG32 startY, ULONG32 startWidth, ULONG32 startHeight )
+    BOOLEAN Create()
     {
-        startX -= startWidth / 2;
-        startY -= startHeight / 2;
-
         this->Hwnd = CreateWindowEx(WS_EX_LAYERED, wndClass.lpszClassName, wndClass.lpszMenuName,
-            WS_POPUP, startX, startY, startWidth, startHeight, NULL, NULL, wndClass.hInstance, NULL);
+            WS_POPUP, 0, 0, GetSystemMetrics( SM_CXSCREEN ), GetSystemMetrics(SM_CYSCREEN), NULL, NULL, wndClass.hInstance, NULL);
         if (!this->Hwnd)
             return FALSE;
 

@@ -5,6 +5,8 @@
 #include <dbghelp.h>
 #include <vector>
 #include <chrono>
+#include <ShlObj.h>
+#include <ShObjIdl.h>
 #include <filesystem>
 
 #include <Zydis.h>
@@ -28,13 +30,90 @@
 #include "GUI/DirectX.h"
 #include "GUI/Menu.h"
 
+#include "Obfuscator.h"
+
 VOID onDrawCallback()
 {
-	ImGui::SetNextWindowSize({ 475, 535 });
-	ImGui::Begin("Obfuscation Engine", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings);
+	static BOOLEAN isFirstFrame{ TRUE }, justRanObfuscator{ FALSE };
+	if (isFirstFrame)
+	{
+		ImGui::SetNextWindowPos( { ( float )( ( GetSystemMetrics(SM_CXSCREEN) / 2 ) - (475 / 2)),
+			(float)( ( GetSystemMetrics(SM_CYSCREEN) / 2 ) - (535 / 2) )});
+		ImGui::SetNextWindowSize({ 475, 535 });
+		isFirstFrame = FALSE;
+	}
+	ImGui::Begin("Obfuscation Engine", NULL, 
+		ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse);
 
+	static CHAR appFilePath[MAX_PATH], pdbFilePath[MAX_PATH];
 
+	ImGui::Text("Application");
+	ImGui::SetNextItemWidth(394.00f);
+	ImGui::InputText("###Application", appFilePath, MAX_PATH);
+	ImGui::SameLine();
+	ImGui::Dummy({ -13.00f, 0.00f });
+	ImGui::SameLine();
+	if (ImGui::Button("Open File###OPEN_APP"))
+	{
+		strcpy(appFilePath, Utils::fileDialogBox().c_str());
 
+		std::string Copy = appFilePath;
+		Copy.resize(Copy.size() - 3);
+		Copy += "pdb";
+
+		Obfuscator::Logs.push_back(std::string( appFilePath ) + " added");
+		if (std::filesystem::exists(Copy))
+		{
+			Obfuscator::Logs.push_back("PDB found " + Copy);
+			strcpy(pdbFilePath, Copy.c_str());
+		}
+	}
+
+	ImGui::Text("PDB");
+	ImGui::SetNextItemWidth(394.00f);
+	ImGui::InputText("###PDB_INPUT", pdbFilePath, MAX_PATH);
+	ImGui::SameLine();
+	ImGui::Dummy({ -13.00f, 0.00f });
+	ImGui::SameLine();
+	if (ImGui::Button("Open File###OPEN_PDB"))
+	{
+		strcpy(pdbFilePath, Utils::fileDialogBox().c_str());
+		Obfuscator::Logs.push_back(std::string(pdbFilePath) + " added");
+	}
+	
+	if (ImGui::Button("Run", { 460, 20 }))
+	{
+		BOOLEAN appExists = std::filesystem::exists(appFilePath);
+		if (!appExists)
+			Obfuscator::Logs.push_back("Application doesn't exists");
+
+		BOOLEAN pdbExists = std::filesystem::exists(pdbFilePath);
+		if (!pdbExists)
+			Obfuscator::Logs.push_back("PDB doesn't exists.");
+
+		if (appExists && pdbExists)
+		{
+			Obfuscator::Logs.clear();
+			Obfuscator::Run(appFilePath, pdbFilePath);
+			justRanObfuscator = TRUE;
+		}
+	}
+
+	ImGui::Dummy({ 0.00f, 35.00f });
+
+	ImGui::Text("Logs:");
+	ImGui::BeginChild("Logs", { 460, 334 }, TRUE);
+
+	for (SIZE_T i = 0; i < Obfuscator::Logs.size(); ++i)
+		ImGui::Text(Obfuscator::Logs[i].c_str());
+	
+	if (justRanObfuscator)
+	{
+		ImGui::SetScrollHereY(1.00f);
+		justRanObfuscator = FALSE;
+	}
+		
+	ImGui::EndChild();
 	ImGui::End();
 }
 
@@ -42,17 +121,8 @@ INT main(
 	INT argc,
 	CHAR** argv)
 {
-	std::vector<BYTE> raw_bytes = { 0xE9,0x10,0x20,0x00,0x00 };
-	zydisParser ok;
-	ZydisDecodedInstruction wa;
-	ZydisDecodedOperand ws[ZYDIS_MAX_OPERAND_COUNT];
-	ok.decodeInstruction(raw_bytes,&wa,ws);
-	std::cout << std::hex << "0x" << ok.getJmpOffset(wa) << std::endl;
-	return 0;
-
-	// end of test
 	CWindow Window{ L"Window Class", L"Window Title" };
-	Window.Create(GetSystemMetrics(SM_CXSCREEN) / 2, GetSystemMetrics(SM_CYSCREEN) / 2, 500, 700);
+	Window.Create();
 
 	CDirectX DirectX{ &Window };
 
@@ -60,37 +130,5 @@ INT main(
 	
 	DirectX.resetDevice();
 	Window.Destroy();
-
-	Sleep(-1);
-
-	PE Image{ "Default.exe" };
-	printf("[+] Loaded %.2fkb file to memory\n", (float)Image.fileData.size() / 1024.00f);
-
-	printf("==============================================================\n");
-	std::chrono::time_point startTime = std::chrono::steady_clock::now();
-
-	IMAGE_SECTION_HEADER* Stub = Image.createSection(".stub", 512, 0x60000020);
-	Image.Refresh();
-
-	std::string pdbFilePath = Image.filePath;
-	pdbFilePath.resize(pdbFilePath.size() - 3);
-	pdbFilePath += "pdb";
-
-	CPdbParser pdbParser{};
-	pdbParser.Parse(pdbFilePath.c_str());
-
-	for (CRoutine Routine : pdbParser.Routines)
-	{
-		printf("[0x%x] %s\n", Routine.Offset, Routine.Name);
-	}
-
-
-	std::chrono::time_point endTime = std::chrono::steady_clock::now();
-	printf("==============================================================\n");
-
-	LONG64 timeTaken = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
-	printf("[>] Done, took %.2fms.\n", timeTaken / 1000.00f);
-
-
-	return std::cin.get();
+	return 0;
 }

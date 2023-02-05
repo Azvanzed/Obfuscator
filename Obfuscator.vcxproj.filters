@@ -43,6 +43,7 @@
     <ClInclude Include="Deps\ImGui\imstb_rectpack.h" />
     <ClInclude Include="Deps\ImGui\imstb_textedit.h" />
     <ClInclude Include="Deps\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Obfuscator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">

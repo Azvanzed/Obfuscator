@@ -59,4 +59,18 @@ public:
 		fileData.resize(Nt->OptionalHeader.SizeOfImage);
 		return newSection;
 	}
+
+	IMAGE_SECTION_HEADER* findSection(const CHAR* sectionName)
+	{
+		IMAGE_SECTION_HEADER* Section = IMAGE_FIRST_SECTION(this->Nt );
+		for (USHORT i = 0; i < this->Nt->FileHeader.NumberOfSections; ++i, ++Section)
+		{
+			if (strcmp((CHAR*)Section->Name, sectionName))
+				continue;
+
+			return Section;
+		}
+
+		return NULL;
+	}
 };
