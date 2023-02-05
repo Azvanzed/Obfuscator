@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Entry.cpp" />
+    <ClCompile Include="dependencies\zydis\Zydis.c">
+      <Filter>dependencies\zydis</Filter>
+    </ClCompile>
+    <ClCompile Include="instructions_parser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dependencies\zydis\Zydis.h">
+      <Filter>dependencies\zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="EntryPoint.h">
+      <Filter>includes</Filter>
+    </ClInclude>
+    <ClInclude Include="PE.h">
+      <Filter>includes</Filter>
+    </ClInclude>
+    <ClInclude Include="Routine.h">
+      <Filter>includes</Filter>
+    </ClInclude>
+    <ClInclude Include="Routines.h">
+      <Filter>includes</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>includes</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>includes</Filter>
+    </ClInclude>
+    <ClInclude Include="instructions_parser.h">
+      <Filter>includes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="dependencies">
+      <UniqueIdentifier>{b81ed0f1-0020-40b0-b245-a5dd8ec887dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dependencies\zydis">
+      <UniqueIdentifier>{c0e7c193-7b7f-475d-bd38-cf526b9fb3b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="includes">
+      <UniqueIdentifier>{da2ce173-7740-49d2-a2c0-1862f9ba0bf7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

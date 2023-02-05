@@ -74,6 +74,7 @@
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\</IntDir>
     <TargetName>$(ProjectName)_x64</TargetName>
+    <IncludePath>$(SolutionDir)\dependencies\zydis;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -137,14 +138,18 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <AdditionalDependencies>dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dependencies\zydis\Zydis.c" />
     <ClCompile Include="Entry.cpp" />
+    <ClCompile Include="instructions_parser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="dependencies\zydis\Zydis.h" />
+    <ClInclude Include="instructions_parser.h" />
     <ClInclude Include="Routines.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="EntryPoint.h" />

@@ -7,13 +7,18 @@
 #include "PE.h"
 #include "Routines.h"
 #include "EntryPoint.h"
-
-
+#include <Zydis.h>
+#include "instructions_parser.h"
+ZYDIS_MNEMONIC_H
 
 INT main(
 	INT argc,
 	CHAR** argv)
 {
+	std::string str_test = "\xE9\x00\x00\x00\x00";
+	std::vector<BYTE> raw_bytes = { 0xE9,0x00,0x00,0x00,0x00 };
+	instruction test_instruction(raw_bytes);
+	return 1;
 	if (argc < 1)
 		return 1;
 
@@ -35,8 +40,8 @@ INT main(
 	/* Spoof entrypoint */
 	printf("[>] Spoofed entrypoint to 0x%llx\n", Image.Nt->OptionalHeader.AddressOfEntryPoint);
 
-
-
+	
+	
 	std::chrono::time_point endTime = std::chrono::steady_clock::now();
 	printf("==============================================================\n");
 
