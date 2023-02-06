@@ -21,19 +21,15 @@ namespace Obfuscator
 
 		PE Image{ fileName.c_str()};
 
-
 		CPdbParser pdbParser{};
 		pdbParser.Parse(pdbFileName.c_str());
 
 		CZydisParser zydisParser{};
 
-		Virtualization::processRoutine(Image, zydisParser, pdbParser.Routines[0]);
-		//for (const CRoutine& Routine : pdbParser.Routines)
-		//{
-		//	Virtualization::processRoutine(Image, zydisParser, Routine);
-		//	//addLog(std::format("[{:#x}] {}\n", functionAddress, Routine.Name));
-
-		//}
+		for (const CRoutine& Routine : pdbParser.Routines)
+		{
+			Virtualization::processRoutine(Image, zydisParser, Routine);
+		}
 		addLog(std::format("Parsed {} routines.\n", pdbParser.Routines.size()));
 
 		IMAGE_SECTION_HEADER* stubSection = Image.createSection(".stub", 512, 0x60000020);

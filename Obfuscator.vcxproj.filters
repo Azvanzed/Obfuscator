@@ -28,7 +28,7 @@
     <ClInclude Include="Defines.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="ZydisParser.h">
+    <ClInclude Include="ZydisDecoder.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="PdbParser.h" />
@@ -45,6 +45,7 @@
     <ClInclude Include="Deps\ImGui\imstb_truetype.h" />
     <ClInclude Include="Obfuscator.h" />
     <ClInclude Include="Virtualization.h" />
+    <ClInclude Include="ZydisInstruction.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">

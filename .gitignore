@@ -70,3 +70,14 @@ bin/Default.exe.i64
 /x64/Debug/_IsIncrementalBuild
 /x64/Debug/Obfuscator.exe.recipe
 /imgui.ini
+*.pdb
+*.id0
+*.id1
+*.id2
+*.nam
+*.til
+*.pdb
+*.pdb
+bin/Default.pdb
+bin/Default.pdb
+*.pdb

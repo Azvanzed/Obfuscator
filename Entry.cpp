@@ -5,6 +5,7 @@
 #include <dbghelp.h>
 #include <vector>
 #include <chrono>
+#include <array>
 #include <ShlObj.h>
 #include <ShObjIdl.h>
 #include <filesystem>
@@ -18,7 +19,8 @@
 #include "Routine.h"
 
 #include "PdbParser.h"
-#include "ZydisParser.h"
+#include "ZydisInstruction.h"
+#include "ZydisDecoder.h"
 
 #include <d3d9.h>
 
@@ -68,6 +70,7 @@ VOID onDrawCallback()
 			Obfuscator::addLog("PDB found => " + Copy);
 			strcpy(pdbFilePath, Copy.c_str());
 		}
+
 	}
 
 	ImGui::Text("PDB");
@@ -124,13 +127,6 @@ INT main(
 	INT argc,
 	CHAR** argv)
 {
-	/*CZydisParser ok;
-	char raw_bytes[] = {0xE9,0x20,0x10,0x00,0x00};
-	ZydisDecodedInstruction test;
-	ZydisDecodedOperand testop[ZYDIS_MAX_OPERAND_COUNT];
-	ok.decodeInstruction((PVOID)raw_bytes, 6, &test, testop);
-	std::cout << ZydisMnemonicGetString(test.mnemonic) << std::endl;
-	return 0;*/
 	CWindow Window{ L"Obfuscator", L"Obfuscation Engine" };
 	Window.Create();
 

@@ -5,13 +5,19 @@ namespace Virtualization
 		const CZydisParser& zydisParser, 
 		const CRoutine& Routine)
 	{
-		IMAGE_SECTION_HEADER* _text = Image.findSection(".text");
-		ULONG64 routineBase = (ULONG64)Image.fileData.data() + _text->VirtualAddress + Routine.Offset;
+		printf("Disassembling %s:\n", Routine.Name);
 
-		ZydisDecodedOperand		Operands;
-		ZydisDecodedInstruction Instruction;
-		if (!zydisParser.decodeInstruction( ( PVOID )routineBase, Routine.Size, &Instruction, &Operands ))
+		IMAGE_SECTION_HEADER* _text = Image.findSection(".text");
+		ULONG64 routineBase = (ULONG64)Image.fileData.data() + _text->PointerToRawData + Routine.Offset;
+
+		std::vector<CZydisInstruction> Instructions;
+		if (!zydisParser.disassembleRoutine((PVOID)routineBase, Routine.Size, Instructions))
 			return FALSE;
+
+		for (const CZydisInstruction& Instruction : Instructions)
+		{
+			printf("       %s\n", ZydisMnemonicGetString(Instruction.Decoded.mnemonic));
+		}
 
 		return TRUE;
 	}

@@ -51,6 +51,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableASAN>false</EnableASAN>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -127,13 +128,13 @@
     <ClCompile>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <Optimization>Disabled</Optimization>
+      <Optimization>Full</Optimization>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -173,9 +174,10 @@
     <ClInclude Include="GUI\Menu.h" />
     <ClInclude Include="Deps\Zydis\Zydis.h" />
     <ClInclude Include="GUI\Window.h" />
+    <ClInclude Include="ZydisInstruction.h" />
     <ClInclude Include="Obfuscator.h" />
     <ClInclude Include="Virtualization.h" />
-    <ClInclude Include="ZydisParser.h" />
+    <ClInclude Include="ZydisDecoder.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="PdbParser.h" />
     <ClInclude Include="PE.h" />
