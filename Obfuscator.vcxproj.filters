@@ -16,25 +16,25 @@
     <ClInclude Include="Deps\Zydis\Zydis.h">
       <Filter>Deps\Zydis</Filter>
     </ClInclude>
-    <ClInclude Include="PE.h">
+    <ClInclude Include="PE.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Routine.h">
+    <ClInclude Include="Routine.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Utils.h">
+    <ClInclude Include="Utils.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Defines.h">
+    <ClInclude Include="Defines.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="ZydisDecoder.h">
+    <ClInclude Include="ZydisDecoder.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="PdbParser.h" />
-    <ClInclude Include="GUI\Menu.h" />
-    <ClInclude Include="GUI\Window.h" />
-    <ClInclude Include="GUI\DirectX.h" />
+    <ClInclude Include="PdbParser.hpp" />
+    <ClInclude Include="GUI\Menu.hpp" />
+    <ClInclude Include="GUI\Window.hpp" />
+    <ClInclude Include="GUI\DirectX.hpp" />
     <ClInclude Include="Deps\ImGui\imconfig.h" />
     <ClInclude Include="Deps\ImGui\imgui.h" />
     <ClInclude Include="Deps\ImGui\imgui_impl_dx9.h" />
@@ -43,9 +43,9 @@
     <ClInclude Include="Deps\ImGui\imstb_rectpack.h" />
     <ClInclude Include="Deps\ImGui\imstb_textedit.h" />
     <ClInclude Include="Deps\ImGui\imstb_truetype.h" />
-    <ClInclude Include="Obfuscator.h" />
-    <ClInclude Include="Virtualization.h" />
-    <ClInclude Include="ZydisInstruction.h" />
+    <ClInclude Include="Obfuscator.hpp" />
+    <ClInclude Include="Virtualization.hpp" />
+    <ClInclude Include="ZydisInstruction.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">

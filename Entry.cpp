@@ -10,30 +10,30 @@
 #include <ShObjIdl.h>
 #include <filesystem>
 
-#include <Zydis.h>
-
-#include "Defines.h"
-
-#include "Utils.h"
-#include "PE.h"
-#include "Routine.h"
-
-#include "PdbParser.h"
-#include "ZydisInstruction.h"
-#include "ZydisDecoder.h"
-
 #include <d3d9.h>
 
 #include <imgui.h>
 #include <imgui_impl_win32.h>
 #include <imgui_impl_dx9.h>
 
-#include "GUI/Window.h"
-#include "GUI/DirectX.h"
-#include "GUI/Menu.h"
+#include "GUI/Window.hpp"
+#include "GUI/DirectX.hpp"
+#include "GUI/Menu.hpp"
 
-#include "Virtualization.h"
-#include "Obfuscator.h"
+#include <Zydis.h>
+
+#include "Defines.hpp"
+
+#include "Utils.hpp"
+#include "PE.hpp"
+#include "Routine.hpp"
+
+#include "PdbParser.hpp"
+#include "ZydisInstruction.hpp"
+#include "ZydisDecoder.hpp"
+
+#include "Virtualization.hpp"
+#include "Obfuscator.hpp"
 
 VOID onDrawCallback()
 {
