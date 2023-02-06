@@ -62,3 +62,11 @@ bin/Default.exe.nam
 bin/Default.exe.til
 /bin/intermediates
 bin/Default.exe.i64
+/x64/Debug/Obfuscator.ilk
+*.log
+*.pdb
+/x64/Debug/Obfuscator.vcxproj.FileListAbsolute.txt
+/x64/Debug/vc143.idb
+/x64/Debug/_IsIncrementalBuild
+/x64/Debug/Obfuscator.exe.recipe
+/imgui.ini

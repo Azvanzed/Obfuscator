@@ -123,6 +123,13 @@ INT main(
 	INT argc,
 	CHAR** argv)
 {
+	/*CZydisParser ok;
+	char raw_bytes[] = {0xE9,0x20,0x10,0x00,0x00};
+	ZydisDecodedInstruction test;
+	ZydisDecodedOperand testop[ZYDIS_MAX_OPERAND_COUNT];
+	ok.decodeInstruction((PVOID)raw_bytes, 6, &test, testop);
+	std::cout << ZydisMnemonicGetString(test.mnemonic) << std::endl;
+	return 0;*/
 	CWindow Window{ L"Obfuscator", L"Obfuscation Engine" };
 	Window.Create();
 
