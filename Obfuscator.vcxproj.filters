@@ -44,6 +44,7 @@
     <ClInclude Include="Deps\ImGui\imstb_textedit.h" />
     <ClInclude Include="Deps\ImGui\imstb_truetype.h" />
     <ClInclude Include="Obfuscator.h" />
+    <ClInclude Include="Virtualization.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">

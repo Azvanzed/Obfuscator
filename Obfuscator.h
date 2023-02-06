@@ -1,32 +1,50 @@
 namespace Obfuscator
 {
 	std::vector<std::string> Logs;
+	VOID addLog(std::string Message)
+	{
+		if (ImGui::CalcTextSize( Message.c_str() ).x > 420.00f)
+		{
+			while (ImGui::CalcTextSize(Message.c_str()).x > 420.00f)
+				Message.resize(Message.size() - 1);
+
+			Message += "...";
+		}
+
+		Logs.push_back( Message );
+	}
 	
 	BOOLEAN Run(std::string fileName, std::string pdbFileName)
 	{
-		PE Image{ fileName.c_str()};
-		Logs.push_back(std::format("Loaded {:.2f}kb file to memory.\n", Image.fileData.size() / 1024.00f));
-
+		Obfuscator::addLog("\n========================|Obfuscating|========================");
 		std::chrono::time_point startTime = std::chrono::steady_clock::now();
 
-		IMAGE_SECTION_HEADER* stubSection = Image.createSection(".stub", 512, 0x60000020);
-		Image.Refresh();
-
+		PE Image{ fileName.c_str()};
 		CPdbParser pdbParser{};
 		pdbParser.Parse(pdbFileName.c_str());
 
-		IMAGE_SECTION_HEADER* textSection = Image.findSection(".text");
-		for (CRoutine Routine : pdbParser.Routines)
-		{
-			ULONG64 functionAddress = (ULONG64)Image.fileData.data() + textSection->VirtualAddress + Routine.Offset;
-			Logs.push_back(std::format("[{:#x}]  {}\n", functionAddress, Routine.Name));
-		}
-		Logs.push_back(std::format("Parsed {} routines.\n", pdbParser.Routines.size()));
+		CZydisParser zydisParser{};
+
+		Virtualization::processRoutine(Image, zydisParser, pdbParser.Routines[0]);
+		//for (const CRoutine& Routine : pdbParser.Routines)
+		//{
+		//	Virtualization::processRoutine(Image, zydisParser, Routine);
+		//	//addLog(std::format("[{:#x}] {}\n", functionAddress, Routine.Name));
+
+		//}
+		addLog(std::format("Parsed {} routines.\n", pdbParser.Routines.size()));
+
+		IMAGE_SECTION_HEADER* stubSection = Image.createSection(".stub", 512, 0x60000020);
+		Image.Refresh();
+		addLog(std::format("Created .stub section.\n", pdbParser.Routines.size()));
+
+
+
 
 		std::chrono::time_point endTime = std::chrono::steady_clock::now();
 		
 		LONG64 timeTaken = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
-		Logs.push_back(std::format("Done, took {:.2f}ms.\n", timeTaken / 1000.00f));
+		addLog(std::format("=========================|{:.2f}ms|=========================", timeTaken / 1000.00f));
 
 		Image.fileData.clear();
 		return TRUE;

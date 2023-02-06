@@ -15,9 +15,15 @@ namespace Menu
 		fontCfg.OversampleH = 4;
 		fontCfg.OversampleV = 5;
 
+		ImGuiIO& Io = ImGui::GetIO();
+		Io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Arial.ttf", 14.00f, &fontCfg);
+		
+		ImGuiStyle& Style = ImGui::GetStyle();
+		Style.Colors[ImGuiCol_ScrollbarGrab] = ImColor(200, 200, 200);
+		Style.Colors[ImGuiCol_ScrollbarGrabActive] = ImColor(255, 255, 255);
+		Style.Colors[ImGuiCol_ScrollbarGrabHovered] = ImColor(225, 225, 225);
 
-		ImGuiIO& io = ImGui::GetIO();
-		io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Arial.ttf", 14.00f, &fontCfg);
+		Style.ScrollbarSize = 6.00f;
 
 		while (Msg.message != WM_QUIT)
 		{

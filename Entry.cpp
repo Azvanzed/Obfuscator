@@ -30,6 +30,7 @@
 #include "GUI/DirectX.h"
 #include "GUI/Menu.h"
 
+#include "Virtualization.h"
 #include "Obfuscator.h"
 
 VOID onDrawCallback()
@@ -61,10 +62,10 @@ VOID onDrawCallback()
 		Copy.resize(Copy.size() - 3);
 		Copy += "pdb";
 
-		Obfuscator::Logs.push_back(std::string( appFilePath ) + " added");
+		Obfuscator::addLog("Application added => " + std::string(appFilePath));
 		if (std::filesystem::exists(Copy))
 		{
-			Obfuscator::Logs.push_back("PDB found " + Copy);
+			Obfuscator::addLog("PDB found => " + Copy);
 			strcpy(pdbFilePath, Copy.c_str());
 		}
 	}
@@ -78,22 +79,21 @@ VOID onDrawCallback()
 	if (ImGui::Button("Open File###OPEN_PDB"))
 	{
 		strcpy(pdbFilePath, Utils::fileDialogBox().c_str());
-		Obfuscator::Logs.push_back(std::string(pdbFilePath) + " added");
+		Obfuscator::addLog("PDB added => " + std::string(pdbFilePath));
 	}
 	
 	if (ImGui::Button("Run", { 460, 20 }))
 	{
 		BOOLEAN appExists = std::filesystem::exists(appFilePath);
 		if (!appExists)
-			Obfuscator::Logs.push_back("Application doesn't exists");
+			Obfuscator::addLog("Application doesn't exists.");
 
 		BOOLEAN pdbExists = std::filesystem::exists(pdbFilePath);
 		if (!pdbExists)
-			Obfuscator::Logs.push_back("PDB doesn't exists.");
+			Obfuscator::addLog("PDB doesn't exists.");
 
 		if (appExists && pdbExists)
 		{
-			Obfuscator::Logs.clear();
 			Obfuscator::Run(appFilePath, pdbFilePath);
 			justRanObfuscator = TRUE;
 		}
@@ -104,8 +104,10 @@ VOID onDrawCallback()
 	ImGui::Text("Logs:");
 	ImGui::BeginChild("Logs", { 460, 334 }, TRUE);
 
+	ImGui::PushStyleColor(ImGuiCol_Text, { 0.80f, 0.80f, 0.80f, 1.00f });
 	for (SIZE_T i = 0; i < Obfuscator::Logs.size(); ++i)
 		ImGui::Text(Obfuscator::Logs[i].c_str());
+	ImGui::PopStyleColor();
 	
 	if (justRanObfuscator)
 	{
@@ -121,7 +123,7 @@ INT main(
 	INT argc,
 	CHAR** argv)
 {
-	CWindow Window{ L"Window Class", L"Window Title" };
+	CWindow Window{ L"Obfuscator", L"Obfuscation Engine" };
 	Window.Create();
 
 	CDirectX DirectX{ &Window };
