@@ -20,6 +20,8 @@ namespace Obfuscator
 		std::chrono::time_point startTime = std::chrono::steady_clock::now();
 
 		PE Image{ fileName.c_str()};
+
+
 		CPdbParser pdbParser{};
 		pdbParser.Parse(pdbFileName.c_str());
 

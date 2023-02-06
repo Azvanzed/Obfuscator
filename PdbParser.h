@@ -30,19 +30,19 @@ private:
 
 		return TRUE;
 	}
-	HANDLE thisProcessHandle;
+
+
 public:
 	std::vector<CRoutine> Routines;
 
 	CPdbParser()
 	{
-		thisProcessHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, GetCurrentProcessId());
-		SymInitialize(thisProcessHandle, NULL, FALSE);
+		SymInitialize(GetCurrentProcess(), NULL, FALSE);
 	}
 
 	BOOLEAN Parse(const CHAR* pdbFilePath)
 	{
-		ULONG64 pdbBase = SymLoadModuleEx(thisProcessHandle, NULL, pdbFilePath, 0, 0x10000000, std::filesystem::file_size(pdbFilePath), NULL, 0);
+		ULONG64 pdbBase = SymLoadModuleEx(GetCurrentProcess(), NULL, pdbFilePath, 0, 0x10000000, std::filesystem::file_size(pdbFilePath), NULL, 0);
 		if (!pdbBase)
 			return FALSE;
 		
@@ -50,12 +50,18 @@ public:
 		Ctx.pdbBase		= pdbBase;
 		Ctx.Collector	= &Routines;
 
-		if (!SymEnumSymbols(thisProcessHandle, pdbBase, NULL, (PSYM_ENUMERATESYMBOLS_CALLBACK)&symbolEnum, &Ctx))
+		if (!SymEnumSymbols(GetCurrentProcess(), pdbBase, NULL, (PSYM_ENUMERATESYMBOLS_CALLBACK)&symbolEnum, &Ctx))
 		{
-			SymCleanup(thisProcessHandle);
+			SymUnloadModule64(GetCurrentProcess(), pdbBase);
 			return FALSE;
 		}
 
-		return SymCleanup(thisProcessHandle);
+		return SymUnloadModule64(GetCurrentProcess(), pdbBase);
+	}
+
+	~CPdbParser()
+	{
+		SymCleanup(GetCurrentProcess());
+		CloseHandle(GetCurrentProcess());
 	}
 };

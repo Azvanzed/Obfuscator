@@ -102,7 +102,8 @@ VOID onDrawCallback()
 	ImGui::Dummy({ 0.00f, 35.00f });
 
 	ImGui::Text("Logs:");
-	ImGui::BeginChild("Logs", { 460, 334 }, TRUE);
+	ImGui::BeginChild("Logs", { 460, 334 }, TRUE, 
+		ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse);
 
 	ImGui::PushStyleColor(ImGuiCol_Text, { 0.80f, 0.80f, 0.80f, 1.00f });
 	for (SIZE_T i = 0; i < Obfuscator::Logs.size(); ++i)
