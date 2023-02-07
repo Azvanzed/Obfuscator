@@ -58,7 +58,13 @@ VOID onDrawCallback()
 	ImGui::Dummy({ -13.00f, 0.00f });
 	ImGui::SameLine();
 	if (ImGui::Button("Open File##APP_BUTTON"))
+	{
 		appFilePath = Utils::fileDialogBox();
+
+		std::string possiblePdb = std::string(appFilePath.begin(), appFilePath.end() - 3) + "pdb";
+		if (std::filesystem::exists(possiblePdb))
+			pdbFilePath = possiblePdb;
+	}
 		
 	ImGui::Text("PDB");
 	ImGui::SetNextItemWidth(394.00f);
