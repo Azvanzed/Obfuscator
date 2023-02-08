@@ -176,7 +176,7 @@
     <ClInclude Include="GUI\Window.hpp" />
     <ClInclude Include="ZydisInstruction.hpp" />
     <ClInclude Include="Obfuscator.hpp" />
-    <ClInclude Include="Virtualization.hpp" />
+    <ClInclude Include="Parser.hpp" />
     <ClInclude Include="ZydisDecoder.hpp" />
     <ClInclude Include="Defines.hpp" />
     <ClInclude Include="PdbParser.hpp" />

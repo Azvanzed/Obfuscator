@@ -33,21 +33,26 @@ public:
 		SIZE_T routineSize, 
 		std::vector<CZydisInstruction>& decodedInstructions) const
 	{
-		ULONG64 routineStart = (ULONG64)routineBase;
-		const ULONG64 routineEnd = routineStart + routineSize;
+		ULONG64			Cursor = (ULONG64)routineBase;
+		const ULONG64	routineEnd = (ULONG64)routineBase + routineSize;
 		
-		while (routineStart < routineEnd)
+		while (Cursor < routineEnd)
 		{
 			ZydisDecodedInstruction decodedInstruction;
 			std::array<ZydisDecodedOperand, ZYDIS_MAX_OPERAND_COUNT> decodedOperands;
-			if (!this->decodeInstruction((PVOID)routineStart, routineSize, &decodedInstruction, decodedOperands.data()))
+			if (!this->decodeInstruction((PVOID)Cursor, routineSize, &decodedInstruction, decodedOperands.data()))
 				return FALSE;
 
-			BYTE instructionLength = decodedInstruction.length;
-			routineStart += instructionLength;
-			routineSize -= instructionLength;
+			CZydisInstruction Instruction;
+			Instruction.Offset = Cursor - (ULONG64)routineBase;
+			Instruction.Decoded = decodedInstruction;
+			Instruction.Operands = decodedOperands;
 
-			decodedInstructions.push_back({ decodedInstruction, decodedOperands });
+			decodedInstructions.push_back(Instruction);
+
+			BYTE instructionLength = decodedInstruction.length;
+			routineSize -= instructionLength;
+			Cursor += instructionLength;
 		}
 
 		return TRUE;

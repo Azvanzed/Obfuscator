@@ -1,14 +1,18 @@
 class CZydisInstruction
 {
 public:
-	ZydisDecodedInstruction Decoded;
-	std::array<ZydisDecodedOperand, ZYDIS_MAX_OPERAND_COUNT> Operands;
+	USHORT														Offset;
+	ZydisDecodedInstruction										Decoded;
+	std::array<ZydisDecodedOperand, ZYDIS_MAX_OPERAND_COUNT>	Operands;
+
+	CZydisInstruction()
+	{
+	}
 
 	CZydisInstruction(const ZydisDecodedInstruction& Instruction,
 		const std::array<ZydisDecodedOperand, ZYDIS_MAX_OPERAND_COUNT>& Operands)
 		: Decoded(Instruction), Operands(Operands)
 	{
-
 	}
 
 	BOOLEAN isJmpRelative() const

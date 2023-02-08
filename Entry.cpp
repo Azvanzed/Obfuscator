@@ -32,7 +32,7 @@
 #include "ZydisInstruction.hpp"
 #include "ZydisDecoder.hpp"
 
-#include "Virtualization.hpp"
+#include "Parser.hpp"
 #include "Obfuscator.hpp"
 
 VOID onDrawCallback()
